@@ -22,7 +22,7 @@ type filePhoto struct {
 func downloadFile(fileName string, url string) (err error) {
 	filePath := "files/"
 
-	// Get the data
+	// get the data
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Print(err)
@@ -38,7 +38,7 @@ func downloadFile(fileName string, url string) (err error) {
 	}
 	defer out.Close()
 
-	// Writer the body to file
+	// writer the body to file
 	_, err = io.Copy(out, resp.Body)
 	if err != nil  {
 		fmt.Print(err)
@@ -52,7 +52,7 @@ func resizePhoto(fileName string) {
 	sizes := [][]uint{}
 
 	widths := []uint{540, 65, 80, 311, 250, 372, 45, 225, 250, 158, 80, 113, 113}
-    heights := []uint{900, 110, 100, 415, 300, 620, 60, 300, 300, 158, 100, 115, 150}
+	heights := []uint{900, 110, 100, 415, 300, 620, 60, 300, 300, 158, 100, 115, 150}
 
 	sizes = append(sizes, widths)
 	sizes = append(sizes, heights)
@@ -77,8 +77,6 @@ func resizePhoto(fileName string) {
 			}
 			file.Close()
 
-			// resize to width 1000 using Lanczos resampling
-			// and preserve aspect ratio
 			m := resize.Resize(widths[i], heights[i], img, resize.Lanczos3)
 
 			filePhotoResized := filePath + fmt.Sprint(widths[i]) + "X" + fmt.Sprint(heights[i])
